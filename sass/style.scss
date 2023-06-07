@@ -1,0 +1,415 @@
+@import "utils/variables.scss";
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+body {
+   max-width: $max-width;
+   margin: auto;
+   font-family: $font-text;
+}
+
+.hidden {
+   display: none;
+}
+
+.logo {
+   width: 268px;
+   height: 93px;
+}
+
+.container {
+   padding: 0;
+
+   /*Formulaire de recherche*/
+   &-form {
+      margin: 17px 40px;
+
+      .form-control {
+         border: none;
+         background-color: $color-bodyCard;
+      }
+
+      .search-form {
+         &-input {
+            display: flex;
+            height: 69px;
+
+            & ::placeholder {
+               font-family: $font-text;
+               font-size: 18px;
+            }
+         }
+
+         &-input {
+            position: relative;
+         }
+
+         &-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+
+            .bi-search {
+               font-size: 30px;
+            }
+         }
+      }
+
+      label {
+         display: none;
+      }
+   }
+
+   &-selected {
+      margin: 0 50px;
+
+      button {
+         color: white;
+         cursor: none;
+         margin-bottom: 10px;
+
+         &:hover {
+            color: white;
+         }
+
+         i {
+            cursor: pointer;
+         }
+      }
+
+      .bi-x-circle {
+         color: white;
+         padding-left: 5px;
+      }
+   }
+
+   /*Dropdowns*/
+   &-dropdown {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      margin: 17px 40px 80px 40px;
+
+      @include media-breakpoint-up(md) {
+         width: 80%;
+         flex-direction: row;
+      }
+
+      @include media-breakpoint-up(lg) {
+         width: 60%;
+      }
+
+      @include media-breakpoint-up(xl) {
+         width: 50%;
+      }
+
+      &-btn {
+         width: 33%;
+      }
+
+      // bouton de titre des dropdowns
+      .dropdown-toggle {
+         padding-top: 20px;
+         text-align: left;
+         font-weight: bold;
+         height: 69px;
+         width: 170px;
+         font-size: 18px;
+         position: relative;
+         background-color: $primary;
+
+         &:hover {
+            opacity: 0.8;
+         }
+
+         .bi-chevron-down,
+         .bi-chevron-up {
+            position: absolute;
+            right: 10px;
+         }
+      }
+
+      .dropdown-toggle {
+         &.btn-primary {
+            @extend .btn-primary-open;
+         }
+
+         &.btn-success {
+            @extend .btn-success-open;
+         }
+
+         &.btn-danger {
+            @extend .btn-danger-open;
+         }
+      }
+
+      .btn {
+
+         @each $color-name,
+         $color-value in $button-colors {
+            &-#{$color-name}-open {
+               background-color: $color-value;
+
+               a {
+                  &:hover {
+                     background-color: $color-value;
+                  }
+               }
+            }
+         }
+      }
+
+      // suppression du chevron de dropdown par defaut
+      .dropdown-toggle::after {
+         display: none;
+      }
+
+      // barre de recherche des dropdowns
+      .search-input {
+         display: none;
+         width: 100%;
+         border: none;
+         outline: none;
+         background: transparent;
+         color: white;
+
+         &::placeholder {
+            color: white;
+         }
+      }
+
+      // style des listes des dropdowns
+      ul {
+         margin: -7px 0 !important;
+         border: none;
+         border-radius: 0 0 $border-radius $border-radius;
+      }
+
+      a {
+         color: white;
+      }
+
+      &.active {
+         display: flex;
+         flex-wrap: nowrap;
+      }
+   }
+
+   &-recipes {
+      margin: 25px;
+
+      article {
+         margin-bottom: 50px;
+      }
+   }
+}
+
+// affichage des éléments dans les dropdowns
+.dropdown {
+   &-menu {
+      display: block;
+      opacity: 0;
+      transition: all 0.3s;
+      pointer-events: none;
+      inset: auto auto auto auto !important;
+      margin: 0 !important;
+      transform: none !important;
+      width: 170px;
+
+      &.show { 
+         pointer-events: auto;
+         opacity: 1;
+         width: 215px;
+         display: flex;
+         flex-wrap: wrap;
+         max-height: calc(10 * 36px);
+         overflow-y: auto;
+
+         @include media-breakpoint-up(md) {
+            width: 230px;
+         }
+
+         @include media-breakpoint-up(lg) {
+            width: 470px;
+         }
+
+         @include media-breakpoint-up(xl) {
+            width: 667px;
+         }
+
+         li {
+            cursor: pointer;
+            color: white;
+            width: calc(100% / 1);
+            box-sizing: border-box;
+
+            @include media-breakpoint-up(lg) {
+               width: calc(100% / 2);
+            }
+
+            @include media-breakpoint-up(xl) {
+               width: calc(100% / 3);
+            }
+
+            &:hover {
+               color: black;
+            }
+         }
+      }
+   }
+
+   &-toggle {
+      transition: width 0.3s;
+
+      &.active {
+         width: 215px;
+
+         @include media-breakpoint-up(md) {
+            width: 230px;
+         }
+
+         @include media-breakpoint-up(lg) {
+            width: 470px;
+         }
+
+         @include media-breakpoint-up(xl) {
+            width: 667px;
+         }
+      }
+   }
+}
+
+// style des boutons à l'ouverure d'un dropdown
+.margins {
+   transition: all 0.3s;
+
+   @include media-breakpoint-up(md) {
+      margin-left: 65px;
+   }
+
+   @include media-breakpoint-up(lg) {
+      margin-left: 300px;
+   }
+
+   @include media-breakpoint-up(xl) {
+      margin-left: 500px;
+   }
+}
+
+// mise en forme des articles
+.card {
+   border: none;
+
+   &-body {
+      overflow: hidden;
+      max-height: 186px;
+      padding: 20px;
+      line-height: 15px;
+      background-color: $color-bodyCard;
+
+      &-time {
+         font-weight: bold;
+         display: flex;
+
+         @include media-breakpoint-up(md) {
+            justify-content: flex-end;
+         }
+
+         .bi-clock {
+            padding-right: 5px;
+         }
+      }
+   }
+
+   &-title {
+      h5 {
+         font-size: 18px;
+         display: -webkit-box;
+         -webkit-line-clamp: 2;
+         -webkit-box-orient: vertical;
+         overflow: hidden;
+      }
+   }
+
+   &-text {
+      font-size: 12px;
+
+      &-li {
+         overflow: hidden;
+         text-overflow: ellipsis;
+         white-space: nowrap;
+      }
+
+      &-ingredients {
+         font-weight: bold;
+      }
+
+      &-description {
+         font-family: $font-description;
+      }
+
+      ul {
+         list-style-type: none;
+         padding-left: 0;
+      }
+   }
+}
+
+.overflow {
+   display: -webkit-box;
+   -webkit-line-clamp: 6;
+   -webkit-box-orient: vertical;
+   overflow: hidden;
+}
+
+// modale de recettes
+.modal {
+   display: block;
+   position: fixed;
+   z-index: 1;
+   left: 0;
+   top: 0;
+   background-color: rgba(255, 255, 255, .5);
+
+   &-content {
+      max-width: $max-width-modal;
+      background-color: #F8D6D6;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+
+      .close {
+         float: right;
+         font-size: 28px;
+         font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+         color: #000;
+         text-decoration: none;
+         cursor: pointer;
+      }
+   }
+}
+
+.modal {
+   opacity: 0;
+   visibility: hidden;
+   transition: opacity 0.5s;
+}
+
+.modal.show {
+   opacity: 1;
+   visibility: visible;
+   transform: scale(1.1);
+}
+
+footer {
+   .logo {
+      width: 178px;
+      height: 62px;
+   }
+}

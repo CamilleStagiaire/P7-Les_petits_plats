@@ -1,0 +1,22 @@
+{
+  "name": "les_petits_plats",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./sass/style.scss:./css/style.css",
+    "compile": "sass sass/style.scss ./css/style.css --style=compressed --no-source-map",
+    "lint": "eslint ./"
+  },
+  "author": "Camille",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.42.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5"
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.3"
+  }
+}
