@@ -12,6 +12,7 @@ class App {
   constructor(recipes) {
     this.recipes = recipes;
     this.search = new Search(this.recipes);
+    this.search.prepareRecipes();
     this.ingredientsDropdown = null;
     this.ustensilsDropdown = null;
     this.appliancesDropdown = null;
@@ -142,7 +143,7 @@ class App {
     const container = document.getElementById("recipe-container");
     container.innerHTML = "";
     this.displayRecipes(filteredRecipes);
-    console.log("Nombre de recettes : "+filteredRecipes.length);
+    console.log("Nombre de recettes (while) : "+filteredRecipes.length);
 
     if (filteredRecipes.length === 0) {
       container.innerHTML = "Aucune recette ne correspond à votre critère…";
