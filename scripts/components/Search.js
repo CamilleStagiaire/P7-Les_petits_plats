@@ -11,17 +11,17 @@ class Search {
 
   prepareRecipes() {
     this.recipes = this.recipes.map(recipe => {
-      const name = this.removeAccents(recipe.name).toLowerCase();
-      const description = this.removeAccents(recipe.description).toLowerCase();
-      const ingredients = recipe.ingredients.map(ingredient => ({
+      const nameNoAccent = this.removeAccents(recipe.name).toLowerCase();
+      const descriptionNoAccent = this.removeAccents(recipe.description).toLowerCase();
+      const ingredientsNoAccent = recipe.ingredients.map(ingredient => ({
         ...ingredient,
         ingredient: this.removeAccents(ingredient.ingredient).toLowerCase()
       }));
-      let combinedText = name + " " + description + " " + ingredients.map(ingredient => ingredient.ingredient).join(" ");
-      return { ...recipe, name, description, ingredients, combinedText };
+      let combinedText = nameNoAccent + " " + descriptionNoAccent + " " + ingredientsNoAccent.map(ingredient => ingredient.ingredient).join(" ");
+      return { ...recipe, nameNoAccent, descriptionNoAccent, ingredientsNoAccent, combinedText };
     });
   }
-
+  
   /**
    * Recherche dans la barre principale
    * @param {string} searchString 
@@ -65,13 +65,10 @@ class Search {
     const recipesToSearch = this.filteredRecipes || this.recipes;
     return recipesToSearch.filter((recipe) => {
       return items.every(item => {
-        const lowerCaseItem = item.toLowerCase();
-        const { name, ingredients, description } = recipe;
-        return (
-          name.toLowerCase().includes(lowerCaseItem) ||
-          ingredients.some((ingredient) => ingredient.ingredient.toLowerCase().includes(lowerCaseItem)) ||
-          description.toLowerCase().includes(lowerCaseItem)
-        );
+        const formattedItem = this.removeAccents(item.toLowerCase());
+        const combinedText = recipe.combinedText;;
+
+        return combinedText.includes(formattedItem);
       });
     });
   }
